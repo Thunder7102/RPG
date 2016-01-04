@@ -46,6 +46,7 @@ function love.draw()
 			drawEntity(x, y, entity.id)
 			--love.graphics.rectangle("fill", x, y, player.scale*6.4, player.scale*6.4)
 		end
+	end
 	
 	--x, y = player.calculatePosition();
 	love.graphics.setColor(255,255,255)
