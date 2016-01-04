@@ -33,6 +33,7 @@ namespace LuaServer
                         Console.WriteLine("New client connected: {0}.{1}.{2}.{3}:{4}", bytes[0], bytes[1], bytes[2], bytes[3], sender.Port);
                         client = new Client(_nextId++, this, sender);
 
+                        Broadcast(null, MessageType.Chat, "User " + client.ID + " joined.");
                         Broadcast(client, MessageType.Login, client.State.X, client.State.Y);
                         WriteTo(client, client, MessageType.Authenticated, client.State.X, client.State.Y);
                         foreach (Client otherClient in _clients)
@@ -64,7 +65,7 @@ namespace LuaServer
 
         private void WriteTo(Client client, Client sender, MessageType type, params object[] arguments)
         {
-            string message = string.Format("{0} {1} {2}", sender.ID, (int)type, string.Join(" ", arguments)).Trim() + "\n";
+            string message = string.Format("{0} {1} {2}", sender != null ? sender.ID : 0, (int)type, string.Join(" ", arguments)).Trim() + "\n";
             Console.WriteLine(message);
             byte[] bytes = Encoding.ASCII.GetBytes(message);
 
@@ -74,6 +75,11 @@ namespace LuaServer
         public void Broadcast(Client sender, MessageType type, params object[] arguments)
         {
             foreach (Client c in _clients) WriteTo(c, sender, type, arguments);
+        }
+
+        public void Write(Client client, MessageType type, params object[] arguments)
+        {
+            WriteTo(client, client, type, arguments);
         }
     }
 }

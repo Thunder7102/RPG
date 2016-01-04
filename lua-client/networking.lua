@@ -1,8 +1,11 @@
 local socket = require "socket"
-local math = require "math"
+function math.round(n, deci) deci = 10^(deci or 0) return math.floor(n*deci+.5)/deci end
 
-local serverAddress, serverPort = "127.0.0.1", 9050
+-- local serverAddress, serverPort = "185.72.161.147", 9050
+local serverAddress, serverPort = "localhost", 9050
 server = nil
+local lastPingTime, pingInterval = 1, 1
+local receivedPingResult = true
 --local lastTickTime, tickThreshold = 1/30, 1/30
 --[[
 local entities = {}
@@ -51,7 +54,15 @@ function updateEntityPositionAndDirection(entity, parts)
 	entity.lastDirectionTime = love.timer.getTime()
 end
 
-function networkUpdate()
+function networkUpdate(dTime)
+	lastPingTime = lastPingTime + dTime
+	if lastPingTime > pingInterval then
+		lastPingTime = lastPingTime - pingInterval
+		if receivedPingResult then 
+			server:send("4\n")
+			receivedPingResult = false
+		end
+	end
 	data, msg = server:receive()
 	if data then
 		local parts = {}
@@ -83,6 +94,20 @@ function networkUpdate()
 			-- ID 100 X Y DirX DirY
 			local entity = findOrCreateEntity(parts[1])
 			updateEntityPositionAndDirection(entity, parts, 3)
+		end
+		if parts[2] == "200" then -- chat
+			local msg = ""
+			for i = 3, #parts do 
+				if i > 3 then msg = msg .. " " end
+				msg = msg .. parts[i] 
+			end
+			if parts[1] == "0" then printChat(msg)
+			else printChat("User " .. parts[1], msg) end
+		end
+		if parts[2] == "4" then -- ping response
+			print("Ping result in " .. math.round(lastPingTime * 100) .. " ms")
+			receivedPingResult = true
+			love.window.setTitle("Taylor and Victor's RPG Test - " .. math.round(lastPingTime * 100) .. " ms")
 		end
 	end
 	if msg and msg ~= "timeout" then print(msg) end

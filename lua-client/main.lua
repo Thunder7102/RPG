@@ -11,11 +11,12 @@ local chat = require("chat")
 
 font = love.graphics.newFont(14)
 
-
+--[[
 printChat("Server", "Your mother is mine")
 printChat("BobBarker", "I will eat her")
 printChat("SallySue", "Stop talking about my mom, that's mean!")
 printChat("My boyfriend is a dork!")
+]]
 
 print(controls)
 --Here's a few global variables
@@ -33,7 +34,7 @@ end
 
 function love.update(dTime)
 	check_keyboard(dTime)
-	networkUpdate()
+	networkUpdate(dTime)
 end
 
 function drawEntity(x, y, id)
@@ -64,10 +65,6 @@ function love.draw()
 		player.state = "neutral"
 		love.graphics.setColor(30,50,100)
 		love.graphics.circle("fill", player.posX+player.scale*3.2, player.posY-10, 10)
-		--Remove this when done testing
-		for i=1, #chatLog do
-			print(chatLog[i])
-		end
 	end
 	
 	renderInputBox()

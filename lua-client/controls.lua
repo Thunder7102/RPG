@@ -29,7 +29,7 @@ function keypress(key)
 		elseif player.state == "chat" then
 			player.state = "neutral"
 			if string.len(messageBox)> 0 then 
-				printChat(player.name or "User", messageBox)
+				--printChat(player.name or "User", messageBox)
 				server:send("200 " .. messageBox.."\n")
 				messageBox = ""
 			end
