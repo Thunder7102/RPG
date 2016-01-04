@@ -1,8 +1,8 @@
 local socket = require "socket"
 function math.round(n, deci) deci = 10^(deci or 0) return math.floor(n*deci+.5)/deci end
 
--- local serverAddress, serverPort = "185.72.161.147", 9050
-local serverAddress, serverPort = "localhost", 9050
+local serverAddress, serverPort = "185.72.161.147", 9050
+--local serverAddress, serverPort = "localhost", 9050
 server = nil
 local lastPingTime, pingInterval = 1, 1
 local receivedPingResult = true
@@ -93,7 +93,7 @@ function networkUpdate(dTime)
 		if parts[2] == "100" then -- move
 			-- ID 100 X Y DirX DirY
 			local entity = findOrCreateEntity(parts[1])
-			updateEntityPositionAndDirection(entity, parts, 3)
+			if entity ~= player then updateEntityPositionAndDirection(entity, parts, 3) end
 		end
 		if parts[2] == "200" then -- chat
 			local msg = ""
