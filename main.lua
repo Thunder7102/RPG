@@ -13,7 +13,10 @@ player = {
 	posX = 300,
 	posY = 500,
 	speed = 100,
-	scale = 10
+	scale = 10,
+	hp = 25,
+	defense = 0,
+	energy = 10
 }
 
 function love.load()
