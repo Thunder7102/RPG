@@ -5,6 +5,7 @@
 local map = require("map")
 local controls = require("controls")
 local networking = require("networking")
+local entity = require("entity")
 
 print(controls)
 --Here's a few global variables
