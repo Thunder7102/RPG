@@ -10,6 +10,8 @@ chatHeight = scrHeight*.7
 chatWidth = scrWidth*.6
 
 chatLog = {}
+--Messagebox will store the message the player is typing
+messageBox = ""
 
 function printChat(sender, text)
 	if text == nil then 
@@ -28,35 +30,18 @@ function renderChat()
 		index = index + 1
 		if index >= 10 then break end
 	end
-
-	--[[
-	--Pulling oldest entries in chatLog and filling textBox
-	local textBox = {}
-	local k = 0
-	for i=10, 1, -1 do
-		if #chatLog > k then
-			table.insert(textBox, chatLog[#chatLog-k])
-			k=k+1
-		end
-	end
-	
-	--Now to render textBox
-	for i=1, #textBox do
-		love.graphics.print(textBox[i], 20, chatHeight - ((#textBox - i)*15))
-	end
-	]]
 end
 
 function renderInputBox()
 	--Creates a togglable switch
 	if player.state == "chat" then
-		player.state = "neutral"
-	elseif player.state == "chatstart" then
 		love.graphics.setColor(0,0,0)
 		love.graphics.rectangle("fill",20, chatHeight+20,300,20)
 		love.graphics.setColor(255,255,255)
 		love.graphics.rectangle("line",20, chatHeight+20,300,20)
-		love.graphics.print("|", 23, chatHeight+20)
-		
+		love.graphics.print(messageBox,23,chatHeight+20)
+		if string.len(messageBox) < 40 then
+			love.graphics.print("|", 23+font:getWidth(messageBox), chatHeight+20)
+		end
 	end
 end

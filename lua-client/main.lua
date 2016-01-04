@@ -9,7 +9,7 @@ local entity = require("entity")
 local user = require("player")
 local chat = require("chat")
 
-local font = love.graphics.newFont(14)
+font = love.graphics.newFont(14)
 
 
 printChat("Server", "Your mother is mine")
