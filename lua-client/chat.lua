@@ -22,6 +22,14 @@ function printChat(sender, text)
 end
 
 function renderChat()
+	local index = 0
+	for i = #chatLog, 1, -1 do
+		love.graphics.print(chatLog[i], 20, chatHeight - (index * 15))
+		index = index + 1
+		if index >= 10 then break end
+	end
+
+	--[[
 	--Pulling oldest entries in chatLog and filling textBox
 	local textBox = {}
 	local k = 0
@@ -36,6 +44,7 @@ function renderChat()
 	for i=1, #textBox do
 		love.graphics.print(textBox[i], 20, chatHeight - ((#textBox - i)*15))
 	end
+	]]
 end
 
 function renderInputBox()
