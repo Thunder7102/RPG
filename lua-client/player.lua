@@ -8,6 +8,14 @@ player.scale = 10
 player.state = "neutral"
 print("Player speed is: "..player.speed)
 
+function renderPlayerUI()
+	--This will handle the basic UI of player energy and HP
+	barSize = scrWidth/4
+	
+	love.graphics.setColor(138,145,148)
+	
+	love.graphics.rectangle("fill", barSize, scrHeight-(scrHeight*.1), barSize, math.floor(scrHeight*.1))
+end
 
 function player.attack()
 	--Attacks in the direction the player is facing (north for now)

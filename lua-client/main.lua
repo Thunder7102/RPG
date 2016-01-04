@@ -65,6 +65,7 @@ function love.draw()
 	drawObstacles()
 	
 	--Player attack
+	renderPlayerUI()
 	if player.state == "attacking" then
 		player.state = "neutral"
 		love.graphics.setColor(30,50,100)
@@ -79,6 +80,7 @@ function love.draw()
 end
 
 function drawObstacles()
+	--Temporary function to draw the location of obstacles so we can pop in a grid later into the game
 	local size = player.scale * 6.4
 	if #collisionMap > 0 then
 		love.graphics.setColor(255,0,0)

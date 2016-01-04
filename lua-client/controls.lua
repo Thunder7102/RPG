@@ -65,6 +65,8 @@ function keypress(key)
 			messageBox = messageBox..key
 		end
 	end
+
+	
 end
 
 function check_keyboard(dTime)
