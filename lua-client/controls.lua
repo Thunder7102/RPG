@@ -117,7 +117,7 @@ function check_keyboard(dTime)
 	
 	--Here is attacking
 	if left_mouse then
-		player.attack()
+		player.state = "attacking"
 	end
 	
 	

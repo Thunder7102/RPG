@@ -3,6 +3,32 @@
 	access to.
 ]]
 entities = {} 
+projectiles = {}
+
+function createProjectile(x,y,dir, owner)
+	local projectile = {
+		posX = x,
+		posY = y, 
+		boxWidth = 1, 
+		boxHeight = 1,
+		parent = "",
+		speed = 100,
+		
+		-- predictive movement variables
+		lastDirectionTime = love.timer.getTime(),
+		dir = dir
+	}
+	
+	projectile.calculatePosition = function()
+		local dTime = love.timer.getTime() - projectile.lastDirectionTime
+		local posX = projectile.posX + math.cos(projectile.dir) * projectile.speed * dTime
+		local posY = projectile.posY + math.sin(projectile.dir) * projectile.speed * dTime
+		return posX, posY
+	end
+	
+	table.insert(projectiles, projectile)
+	return projectile
+end
 
 function createEntity()
 

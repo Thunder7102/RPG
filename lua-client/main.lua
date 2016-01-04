@@ -11,14 +11,6 @@ local chat = require("chat")
 
 font = love.graphics.newFont(20)
 
---[[
-printChat("Server", "Your mother is mine")
-printChat("BobBarker", "I will eat her")
-printChat("SallySue", "Stop talking about my mom, that's mean!")
-printChat("My boyfriend is a dork!")
-]]
-
-
 --Here's a few global variables
 
 function love.keypressed(key)
@@ -39,13 +31,16 @@ function love.update(dTime)
 	scrHeight = love.graphics.getHeight()
 	chatHeight = scrHeight*.7
 	chatWidth = scrWidth*.6
+	player.update()
 end
 
 function drawEntity(x, y, id)
 	local size = player.scale * 6.4
 	love.graphics.rectangle("fill", x - size / 2, y - size / 2, size, size)
+	if id then 
 	love.graphics.setColor(0,0,0)
 	love.graphics.printf(id, x - size / 2, y, size, 'center')
+	end
 end
 
 function love.draw()
@@ -59,19 +54,25 @@ function love.draw()
 		end
 	end
 	
+	for i = 1, #projectiles do
+		local projectile = projectiles[i]
+	end
+	--Draws the projectiles
+	for i, projectile in pairs(projectiles) do
+		if projectile ~= player then
+			x, y = projectile.calculatePosition();
+			love.graphics.setColor(100, 100, 100)
+			drawEntity(x, y)
+			--love.graphics.rectangle("fill", x, y, player.scale*6.4, player.scale*6.4)
+		end
+	end
+	
 	--x, y = player.calculatePosition();
 	love.graphics.setColor(255,255,255)
 	drawEntity(player.posX, player.posY, player.id)
 	drawObstacles()
-	
-	--Player attack
+
 	renderPlayerUI()
-	if player.state == "attacking" then
-		player.state = "neutral"
-		love.graphics.setColor(30,50,100)
-		love.graphics.circle("fill", player.posX+player.scale*3.2, player.posY-10, 10)
-	end
-	
 	renderInputBox()
 	
 	--Chat
