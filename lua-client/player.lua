@@ -5,7 +5,7 @@ local entity = require("entity")
 player = createEntity()
 player.level = 1
 player.scale = 10
-playerState = "neutral"
+player.state = "neutral"
 print("Player speed is: "..player.speed)
 
 

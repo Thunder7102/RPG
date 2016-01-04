@@ -20,6 +20,12 @@ printChat("My boyfriend is a dork!")
 print(controls)
 --Here's a few global variables
 
+function love.keypressed(key)
+	--Will pass keys to controls
+	print("Key pressed: "..key)
+	keypress(key)
+end
+
 function love.load()
 	networkInit()
 	love.graphics.setFont(font)
@@ -63,6 +69,8 @@ function love.draw()
 			print(chatLog[i])
 		end
 	end
+	
+	renderInputBox()
 	
 	--Chat
 	love.graphics.setColor(255,255,255)

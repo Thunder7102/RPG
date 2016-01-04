@@ -7,14 +7,29 @@ local lastDirection = {
 	dirY = 0,
 }
 
+function keypress(key)
+	--For non-continuous keypress handling
+	if key == "return" then
+		if player.state == "chatstart" then
+			player.state = "chat"
+		else
+			player.state = "chatstart"
+		end
+	end
+	
+end
+
 function check_keyboard(dTime)
-	--Checks the default movement keys here
+	--This checks for keys which you want to see if they are held down or to perform an operation constantly
 	up = love.keyboard.isDown("up")
 	down = love.keyboard.isDown("down")
 	left = love.keyboard.isDown("left")
 	right = love.keyboard.isDown("right")
 	--mousekeys
 	left_mouse = love.mouse.isDown(1)
+	
+	--other
+	
 	
 	direction = { dirX = 0, dirY = 0 }
 	
@@ -51,7 +66,8 @@ function check_keyboard(dTime)
 	if left_mouse then
 		player.attack()
 	end
-	--Below will be other menu options
+	
+	
 end
 
 function boundingBox(x1,y1,w1,h1, x2,y2,w2,h2)

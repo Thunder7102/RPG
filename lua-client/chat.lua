@@ -33,11 +33,21 @@ function renderChat()
 	end
 	
 	--Now to render textBox
-	for i=#textBox, 1, -1 do
-		love.graphics.print(textBox[i], 20, chatHeight + ((#textBox - i)*15))
+	for i=1, #textBox do
+		love.graphics.print(textBox[i], 20, chatHeight - ((#textBox - i)*15))
 	end
 end
 
 function renderInputBox()
-
+	--Creates a togglable switch
+	if player.state == "chat" then
+		player.state = "neutral"
+	elseif player.state == "chatstart" then
+		love.graphics.setColor(0,0,0)
+		love.graphics.rectangle("fill",20, chatHeight+20,300,20)
+		love.graphics.setColor(255,255,255)
+		love.graphics.rectangle("line",20, chatHeight+20,300,20)
+		love.graphics.print("|", 23, chatHeight+20)
+		
+	end
 end
