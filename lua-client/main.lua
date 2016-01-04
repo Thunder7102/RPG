@@ -12,6 +12,7 @@ local chat = require("chat")
 printChat("Server", "Your mother is mine")
 printChat("BobBarker", "I will eat her")
 printChat("SallySue", "Stop talking about my mom, that's mean!")
+printChat("My boyfriend is a dork!")
 print(controls)
 --Here's a few global variables
 

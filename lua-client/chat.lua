@@ -12,7 +12,7 @@ chatWidth = scrWidth*.6
 chatLog = {}
 
 function printChat(sender, text)
-	text = nil then 
+	if text == nil then 
 		text = sender
 		sender = "Console"
 	end
