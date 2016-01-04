@@ -2,19 +2,21 @@
 	The base of entities and core functions they will have 
 	access to.
 ]]
-entities = {}
+entities = {} 
 
 function createEntity()
 
 	local entity = {
 		--The default stats of an entity, can be changed/added/removed later
 		hp = 25,
+		maxhp = 25,
 		--p stands for physical defense, m is magical
 		pDefense = 1, 
 		mDefense = 1,
 		pDamage = 1, 
 		mDamage = 1, 
 		energy = 10,
+		maxEnergy = 10,
 		speed = 100,
 		--More technical properties
 		size = 1, 

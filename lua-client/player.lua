@@ -12,9 +12,39 @@ function renderPlayerUI()
 	--This will handle the basic UI of player energy and HP
 	barSize = scrWidth/4
 	
+	--Here is the health bar
 	love.graphics.setColor(138,145,148)
+	love.graphics.rectangle("fill", barSize-10, scrHeight-((scrHeight*.04)+10), barSize, math.floor(scrHeight*.04))
+	love.graphics.setColor(255,0,0)
 	
-	love.graphics.rectangle("fill", barSize, scrHeight-(scrHeight*.1), barSize, math.floor(scrHeight*.1))
+	local healthInc = math.ceil(barSize/player.maxhp)
+	if player.hp == player.maxhp then
+		love.graphics.rectangle("fill", barSize-10, scrHeight-((scrHeight*.04)+10), barSize, math.floor(scrHeight*.04))
+	elseif player.hp > 0 then
+		love.graphics.rectangle("fill", barSize-10, scrHeight-((scrHeight*.04)+10), healthInc*player.hp, math.floor(scrHeight*.04))
+	else
+		player.hp = 0
+	end
+	
+	love.graphics.setColor(255,255,255)
+	love.graphics.print("HP: "..player.hp.." / "..player.maxhp, barSize*1.3, scrHeight-((scrHeight*.04)+10))
+	
+	--Here is the energy bar
+	love.graphics.setColor(138,145,148)
+	love.graphics.rectangle("fill", (barSize*2)+10, scrHeight-((scrHeight*.04)+10), barSize, math.floor(scrHeight*.04))
+	
+	love.graphics.setColor(0,0,255)
+	local energyInc = math.ceil(barSize/player.maxEnergy)
+	if player.energy == player.maxEnergy then
+		love.graphics.rectangle("fill", (barSize*2)+10, scrHeight-((scrHeight*.04)+10), barSize, math.floor(scrHeight*.04))
+	elseif player.energy > 0 then
+		love.graphics.rectangle("fill", barSize*2, scrHeight-((scrHeight*.04)+10), energyInc*player.energy, math.floor(scrHeight*.04))
+	else
+		player.energy = 0
+	end
+	
+	love.graphics.setColor(255,255,255)
+	love.graphics.print("Energy: "..player.energy.." / "..player.maxEnergy, barSize*2.3, scrHeight-((scrHeight*.04)+10))
 end
 
 function player.attack()
