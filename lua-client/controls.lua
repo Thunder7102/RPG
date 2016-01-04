@@ -34,7 +34,7 @@ function check_keyboard(dTime)
 	
 	if lastDirection.dirX ~= direction.dirX or lastDirection.dirY ~= direction.dirY then
 		local strToSend = string.format("100 %f %f %f %f\n", player.posX, player.posY, direction.dirX, direction.dirY)
-		print(strToSend)
+		-- print(strToSend)
 		server:send(strToSend)
 		lastDirection = direction
 	end
