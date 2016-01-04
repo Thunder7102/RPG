@@ -38,3 +38,6 @@ function renderChat()
 	end
 end
 
+function renderInputBox()
+
+end
