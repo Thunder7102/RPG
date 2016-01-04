@@ -9,7 +9,7 @@ local entity = require("entity")
 local user = require("player")
 local chat = require("chat")
 
-font = love.graphics.newFont(14)
+font = love.graphics.newFont(20)
 
 --[[
 printChat("Server", "Your mother is mine")
@@ -18,12 +18,11 @@ printChat("SallySue", "Stop talking about my mom, that's mean!")
 printChat("My boyfriend is a dork!")
 ]]
 
-print(controls)
+
 --Here's a few global variables
 
 function love.keypressed(key)
-	--Will pass keys to controls
-	print("Key pressed: "..key)
+	--Will pass keys to controls to handle them
 	keypress(key)
 end
 
@@ -34,7 +33,12 @@ end
 
 function love.update(dTime)
 	check_keyboard(dTime)
+
 	networkUpdate(dTime)
+	scrWidth = love.graphics.getWidth()
+	scrHeight = love.graphics.getHeight()
+	chatHeight = scrHeight*.7
+	chatWidth = scrWidth*.6
 end
 
 function drawEntity(x, y, id)
