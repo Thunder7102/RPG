@@ -12,6 +12,11 @@ chatWidth = scrWidth*.6
 chatLog = {}
 
 function printChat(sender, text)
+	text = nil then 
+		text = sender
+		sender = "Console"
+	end
+	
 	local message = "<"..sender..">   "..text
 	table.insert(chatLog, message)
 end
