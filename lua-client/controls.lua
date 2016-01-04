@@ -1,5 +1,6 @@
 local map = require("map")
 local networking = require("networking")
+local user = require("player")
 
 local lastDirection = {
 	dirX = 0,
@@ -12,6 +13,8 @@ function check_keyboard(dTime)
 	down = love.keyboard.isDown("down")
 	left = love.keyboard.isDown("left")
 	right = love.keyboard.isDown("right")
+	--mousekeys
+	left_mouse = love.mouse.isDown(1)
 	
 	direction = { dirX = 0, dirY = 0 }
 	
@@ -44,6 +47,10 @@ function check_keyboard(dTime)
 		player.posY = player.posY + direction.dirY * dTime
 	end
 	
+	--Here is attacking
+	if left_mouse then
+		player.attack()
+	end
 	--Below will be other menu options
 end
 

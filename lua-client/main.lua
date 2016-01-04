@@ -6,9 +6,16 @@ local map = require("map")
 local controls = require("controls")
 local networking = require("networking")
 local entity = require("entity")
-require("player")
+local user = require("player")
+local chat = require("chat")
 
 local font = love.graphics.newFont(14)
+
+
+printChat("Server", "Your mother is mine")
+printChat("BobBarker", "I will eat her")
+printChat("SallySue", "Stop talking about my mom, that's mean!")
+printChat("My boyfriend is a dork!")
 
 print(controls)
 --Here's a few global variables
@@ -39,12 +46,26 @@ function love.draw()
 			drawEntity(x, y, entity.id)
 			--love.graphics.rectangle("fill", x, y, player.scale*6.4, player.scale*6.4)
 		end
-	end
 	
 	--x, y = player.calculatePosition();
 	love.graphics.setColor(255,255,255)
 	drawEntity(player.posX, player.posY, player.id)
 	drawObstacles()
+	
+	--Player attack
+	if player.state == "attacking" then
+		player.state = "neutral"
+		love.graphics.setColor(30,50,100)
+		love.graphics.circle("fill", player.posX+player.scale*3.2, player.posY-10, 10)
+		--Remove this when done testing
+		for i=1, #chatLog do
+			print(chatLog[i])
+		end
+	end
+	
+	--Chat
+	love.graphics.setColor(255,255,255)
+	renderChat()
 end
 
 function drawObstacles()

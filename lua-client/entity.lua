@@ -6,7 +6,6 @@ entities = {}
 
 function createEntity()
 
-
 	local entity = {
 		--The default stats of an entity, can be changed/added/removed later
 		hp = 25,
@@ -39,7 +38,7 @@ function createEntity()
 		posY = posY + entity.dirY * dTime
 		return posX, posY
 	end
-
+	
 	table.insert(entities, entity)
 	return entity
 end
