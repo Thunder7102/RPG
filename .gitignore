@@ -48,5 +48,6 @@ Temporary Items
 run.bat
 
 # Visual studio folders
-C#-server/LuaServer/bin
-C#-server/LuaServer/obj
+*\bin
+*\obj
+*.suo
