@@ -2,6 +2,7 @@
 	The base of entities and core functions they will have 
 	access to.
 ]]
+entities = {}
 
 local entity = {
 	--The default stats of an entity, can be changed/added/removed later
@@ -21,4 +22,19 @@ local entity = {
 	id = 1, 
 	facing = 1
 }
+
+function findOrCreateEntity(id)
+	id = tonumber(id)
+	for _, ent in pairs(entities) do
+		if ent.id == id then return ent, _ end
+	end
+	ent = {
+		id = id,
+		posX = 0,
+		posY = 0
+	}
+	table.insert(entities, ent)
+	return ent, #entities
+end
+
 
