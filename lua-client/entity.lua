@@ -6,7 +6,6 @@ entities = {}
 
 function createEntity()
 
-
 local entity = {
 	--The default stats of an entity, can be changed/added/removed later
 	hp = 25,
