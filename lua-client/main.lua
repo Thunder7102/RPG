@@ -6,19 +6,10 @@ local map = require("map")
 local controls = require("controls")
 local networking = require("networking")
 local entity = require("entity")
+require("player")
 
 print(controls)
 --Here's a few global variables
-player = {
-	map = 0,
-	posX = 300,
-	posY = 500,
-	speed = 100,
-	scale = 10,
-	hp = 25,
-	defense = 0,
-	energy = 10
-}
 
 function love.load()
 	networkInit()
