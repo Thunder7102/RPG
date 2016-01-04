@@ -5,7 +5,6 @@
 --This holds all collision points
 collisionMap = {}
 mapSize = {}
-entities = {}
 
 function newCollisionBox(...)
 	--Creates a 64x64 pixel-sized block at the location
@@ -17,20 +16,6 @@ function newCollisionBox(...)
 	
 	collisionMap[#collisionMap+1] = {[1] = posX, [2] = posY}
 	return #collisionMap
-end
-
-function findOrCreateEntity(id)
-	id = tonumber(id)
-	for _, ent in pairs(entities) do
-		if ent.id == id then return ent, _ end
-	end
-	ent = {
-		id = id,
-		posX = 0,
-		posY = 0
-	}
-	table.insert(entities, ent)
-	return ent, #entities
 end
 
 newCollisionBox(50, 300)
