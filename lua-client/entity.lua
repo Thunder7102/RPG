@@ -58,7 +58,7 @@ function createEntity()
 		dirY = 0
 	}
 	
-	entity.calculatePosition = function()
+	entity.calculatePosition = function() 
 		if entity.dirX == 0 and entity.dirY == 0 then return entity.posX, entity.posY end
 		local posX, posY = entity.posX, entity.posY
 		local dTime = love.timer.getTime() - entity.lastDirectionTime

@@ -4,7 +4,7 @@ function math.round(n, deci) deci = 10^(deci or 0) return math.floor(n*deci+.5)/
 local serverAddress, serverPort = "185.72.161.147", 9050
 --local serverAddress, serverPort = "localhost", 9050
 server = nil
-local lastPingTime, pingInterval = 1, 1
+local lastPingTime, pingInterval = 1, 1 
 local receivedPingResult = true
 --local lastTickTime, tickThreshold = 1/30, 1/30
 --[[

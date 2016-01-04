@@ -55,7 +55,7 @@ function love.draw()
 	end
 	
 	for i = 1, #projectiles do
-		local projectile = projectiles[i]
+		local projectile = projectiles[i] 
 	end
 	--Draws the projectiles
 	for i, projectile in pairs(projectiles) do

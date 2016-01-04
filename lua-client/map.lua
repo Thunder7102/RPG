@@ -13,7 +13,7 @@ function newCollisionBox(...)
 	local o = {}
 	local posX = args[1]
 	local posY = args[2]
-	
+	 
 	collisionMap[#collisionMap+1] = {[1] = posX, [2] = posY}
 	return #collisionMap
 end

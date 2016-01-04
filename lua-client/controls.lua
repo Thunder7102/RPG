@@ -76,7 +76,7 @@ function check_keyboard(dTime)
 		up = love.keyboard.isDown("w")
 		down = love.keyboard.isDown("s")
 		left = love.keyboard.isDown("a")
-		right = love.keyboard.isDown("d")
+		right = love.keyboard.isDown("d") 
 		
 		--mousekeys
 		left_mouse = love.mouse.isDown(1)
