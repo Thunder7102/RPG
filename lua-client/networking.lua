@@ -70,7 +70,7 @@ function networkUpdate()
 			-- ID 2 X Y DirX DirY
 			local entity = findOrCreateEntity(parts[1])
 			if #parts > 4 then updateEntityPositionAndDirection(entity, parts, 3) 
-			else updateEntityPosition(player, parts); end
+			else updateEntityPosition(entity, parts); end
 			print("Entity " .. parts[1] .. " added")
 		end
 		if parts[2] == "3" then -- logout
