@@ -3,7 +3,7 @@
 ]]
 
 chatLog = {}
---Messagebox will store the message the player is typing
+--Messagebox will store the message the player is typing 
 messageBox = ""
 
 function printChat(sender, text)
