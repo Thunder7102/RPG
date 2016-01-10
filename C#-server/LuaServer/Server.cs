@@ -59,6 +59,7 @@ namespace LuaServer
             {
                 Console.WriteLine("Client {0} timed out", c.ID);
                 _clients.Remove(c);
+                Broadcast(null, MessageType.Chat, "User " + c.ID + " disconnected");
                 Broadcast(c, MessageType.Logout);
             }
         }
