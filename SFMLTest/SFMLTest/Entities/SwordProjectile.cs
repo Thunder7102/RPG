@@ -1,27 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using SFML.Graphics;
 using SFML.System;
 
 namespace SFMLTest.Entities
 {
-    public class SwordProjectile : Entity
+    public sealed class SwordProjectile : Projectile
     {
-        public Entity Owner { get; set; }
+        private float StartAngle { get; set; }
+        private float EndAngle { get; set; }
 
-        public float StartAngle { get; set; }
-        public float EndAngle { get; set; }
+        private float StartTime { get; set; }
+        private float EndTime { get; set; }
 
-        public float StartTime { get; set; }
-        public float EndTime { get; set; }
+        private RectangleShape RectangleShape { get; set; }
 
-        public RectangleShape RectangleShape { get; set; }
-
-        public SwordProjectile(Entity owner, float angle, float swingDuration) : base(0, 0)
+        public SwordProjectile(IProjectileOwner owner, float angle, float swingDuration) : base(owner, 0)
         {
-            Owner = owner;
-            Console.WriteLine("Angle: {0}", angle);
             StartAngle = angle - 45;
             EndAngle = angle + 45;
             StartTime = Game.ElapsedTime;
@@ -32,22 +27,9 @@ namespace SFMLTest.Entities
             RectangleShape.FillColor = Color.Blue;
         }
 
-        public override int RenderPriority
-        {
-            get { return 500; }
-        }
-
-        protected override float InvisibilityTime
-        {
-            get { return 0; }
-        }
-
-        public event Func<Entity, bool> ValidateHit;
-
         public override void Update(float dTime)
         {
-            X = Owner.X;
-            Y = Owner.Y;
+            Position = Owner.Position;
 
             float angleDifference = EndAngle - StartAngle;
             float timeDifference = EndTime - StartTime;
@@ -56,19 +38,22 @@ namespace SFMLTest.Entities
 
             if (EndTime < Game.ElapsedTime)
             {
-                Die(this);
+                Owner.ProjectileDied(this);
+                return;
             }
 
             foreach (Vector2 hitpoint in HitPoints)
             {
-                IEnumerable<Entity> entities = Game.Entities.Where(e => e != this && (e.Position - hitpoint).Length < 20 && !e.IsInvincible);
-                if (ValidateHit != null)
-                {
-                    entities = entities.Where(ValidateHit);
-                }
+                Vector2 tmpHitpoint = hitpoint;
+                IEnumerable<Entity> entities = Game.Entities.Where(e => e != this 
+                    && (e.Position - tmpHitpoint).Length < 20 
+                    && !e.IsInvincible 
+                    && Owner.ValidateProjectileHit(this, e)
+                );
+
                 foreach (Entity entity in entities.ToArray())
                 {
-                    entity.Hit(Owner, 1);
+                    entity.Hit(Owner as Entity, 1);
                 }
             }
         }
@@ -89,16 +74,6 @@ namespace SFMLTest.Entities
                     yield return Position + Vector2.FromAngle(Angle, -RectangleShape.Origin.X + RectangleShape.Size.X) * ((i + 1) / 5f);
                 }  
             }
-        } 
-
-        public override event DeathEvent Death;
-        public override void Die(Entity entity)
-        {
-            if (Death != null)
-            {
-                Death(this, entity);
-            }
-            Game.Entities.Remove(this);
         }
     }
 }

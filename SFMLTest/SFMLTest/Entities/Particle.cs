@@ -1,5 +1,4 @@
-﻿using System;
-using SFML.Graphics;
+﻿using SFML.Graphics;
 using SFMLTest.Helpers;
 
 namespace SFMLTest.Entities
@@ -10,7 +9,7 @@ namespace SFMLTest.Entities
         private readonly Vector2 _direction;
         private readonly float _startTime;
         private readonly float _decayTime;
-        private RectangleShape _shape;
+        private readonly RectangleShape _shape;
 
         public Particle(Vector2 position, Vector2 direction, float decayTime, Vector2 size, Color color)
         {

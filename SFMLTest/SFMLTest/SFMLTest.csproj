@@ -59,7 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\FireballProjectile.cs" />
+    <Compile Include="Entities\IProjectileOwner.cs" />
     <Compile Include="Entities\Particle.cs" />
+    <Compile Include="Entities\Projectile.cs" />
     <Compile Include="Entities\SwordProjectile.cs" />
     <Compile Include="Helpers\CollisionHelper.cs" />
     <Compile Include="Entities\Enemy.cs" />

@@ -1,26 +1,25 @@
 ﻿using System;
-using System.Linq;
 using SFML.Graphics;
 using SFML.Window;
 using SFMLTest.Helpers;
 
 namespace SFMLTest.Entities
 {
-    public class Player : EntityWithHead
+    public class Player : EntityWithHead, IProjectileOwner
     {
         private const float DashTime = 0.1f;
         private const float DashCooldown = 1f;
         private const float DashMultiplier = 5;
         private readonly PressListener _spaceListener = new PressListener(Keyboard.Key.Space);
         private SwordProjectile _swordProjectile;
-        private PressListener _1buttonListener;
+        private readonly PressListener _1ButtonListener;
 
         private float _dashEndTime;
 
         public Player() : base(10, 150, Color.Green)
         {
             Position = new Vector2(50, 50);
-            _1buttonListener = new PressListener(Keyboard.Key.Num1);
+            _1ButtonListener = new PressListener(Keyboard.Key.Num1);
         }
 
         public override int RenderPriority
@@ -61,24 +60,20 @@ namespace SFMLTest.Entities
             
             if (Mouse.IsButtonPressed(Mouse.Button.Left) && _swordProjectile == null)
             {
-                _swordProjectile = new SwordProjectile(this, Position.AngleTo(Game.MousePosition), 0.3f);
+                _swordProjectile = new SwordProjectile(this, Position.AngleTo(Game.MousePosition), 0.2f);
                 Game.Entities.Add(_swordProjectile);
-                _swordProjectile.Death += (sender, killer) =>
-                {
-                    _swordProjectile = null;
-                };
-                _swordProjectile.ValidateHit += entity => entity is Enemy;
             }
 
-            if (_1buttonListener.IsPressed)
+            if (_1ButtonListener.IsPressed)
             {
-                FireballProjectile projectile = new FireballProjectile(Position, (Game.MousePosition - Position).Normalize() * 75);
+                FireballProjectile projectile = new FireballProjectile(this, (Game.MousePosition - Position).Normalize() * 75);
                 Game.Entities.Add(projectile);
             }
         }
 
-        public override void Die(Entity entity)
+        public bool ValidateProjectileHit(Projectile projectile, Entity target)
         {
+            return target is Enemy;
         }
 
         protected override Vector2 GetDirection()
@@ -90,6 +85,14 @@ namespace SFMLTest.Entities
             if (Keyboard.IsKeyPressed(Keyboard.Key.Down) || Keyboard.IsKeyPressed(Keyboard.Key.S)) direction.Y++;
 
             return direction;
+        }
+
+        public void ProjectileDied(Projectile projectile)
+        {
+            if (projectile is SwordProjectile)
+            {
+                _swordProjectile = null;
+            }
         }
     }
 }

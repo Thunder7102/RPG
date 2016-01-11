@@ -4,7 +4,7 @@ namespace SFMLTest.Helpers
 {
     public static class RandomHelper
     {
-        private static Random Random;
+        private static readonly Random Random;
         static RandomHelper()
         {
             Random = new Random();

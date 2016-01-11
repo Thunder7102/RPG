@@ -6,12 +6,12 @@ using SFMLTest.Entities;
 
 namespace SFMLTest
 {
-    public class Game
+    public static class Game
     {
-        public static List<Entity> Entities { get; set; }
-        public static Player Player { get; set; }
+        public static List<Entity> Entities { get; private set; }
+        public static Player Player { get; private set; }
         public static float ElapsedTime { get; set; }
-        public static RenderWindow Window { get; set; }
+        public static RenderWindow Window { private get; set; }
 
         public static Vector2 MousePosition
         {

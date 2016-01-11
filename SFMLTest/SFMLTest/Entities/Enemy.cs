@@ -4,12 +4,12 @@ namespace SFMLTest.Entities
 {
     public class Enemy : EntityWithHead
     {
-        public Entity Target { get; set; }
-        public bool IsDying { get; set; }
-        public float DeathStartTime { get; set; }
-        public Vector2 DeathFacing { get; set; }
+        private Entity Target { get; set; }
+        private bool IsDying { get; set; }
+        private float DeathStartTime { get; set; }
+        private Vector2 DeathFacing { get; set; }
 
-        public float MoveBackTime { get; set; }
+        private float MoveBackTime { get; set; }
 
         public Enemy(Entity target)
             : base(3, 100, Color.Red)
@@ -20,22 +20,23 @@ namespace SFMLTest.Entities
         public override void Update(float dTime)
         {
             base.Update(dTime);
+            if (MoveBackTime > Game.ElapsedTime)
+            {
+                Position -= GetDirection() * dTime * Speed * 10;
+            }
+
             if (IsDying)
             {
                 if (Game.ElapsedTime - DeathStartTime > 1)
                 {
                     Game.Entities.Remove(this);
                 }
-                Opacity = (float) (0.5 + (Game.ElapsedTime - DeathStartTime)*0.5);
+                Opacity = (float)(0.5 + (Game.ElapsedTime - DeathStartTime) * 0.5);
                 return;
             }
-            if (MoveBackTime > Game.ElapsedTime)
+            if(MoveBackTime <= Game.ElapsedTime)
             {
-                Position -= GetDirection() * dTime * Speed * 10;
-            }
-            else
-            {
-                //Position += GetDirection() * dTime * Speed;
+                Position += GetDirection() * dTime * Speed;
             }
 
             if ((Target.Position - Position).Length < 20)
@@ -47,7 +48,7 @@ namespace SFMLTest.Entities
             }
         }
 
-        public override void Die(Entity entity)
+        protected override void Die(Entity entity)
         {
             DeathFacing = GetDirection();
             DeathStartTime = Game.ElapsedTime;

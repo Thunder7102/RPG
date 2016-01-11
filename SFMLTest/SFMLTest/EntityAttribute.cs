@@ -1,16 +1,12 @@
-﻿using System;
-
-namespace SFMLTest
+﻿namespace SFMLTest
 {
     public class EntityAttribute
     {
-        public string Name { get; set; }
-        public float Current { get; set; }
-        public int Max { get; set; }
+        private float Current { get; set; }
+        public int Max { get; private set; }
 
-        public EntityAttribute(string name, int max)
+        public EntityAttribute(int max)
         {
-            Name = name;
             Current = max;
             Max = max;
         }
@@ -19,7 +15,6 @@ namespace SFMLTest
         {
             attr.Current -= value;
             if (attr.Current < 0) attr.Current = 0;
-            Console.WriteLine("{0} is at {1}/{2}", attr.Name, attr.Current, attr.Max);
             return attr;
         }
 

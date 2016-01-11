@@ -4,17 +4,18 @@ using SFMLTest.Helpers;
 
 namespace SFMLTest.Entities
 {
-    public class FireballProjectile : Entity
+    public class FireballProjectile : Projectile
     {
         private readonly Vector2 _direction;
         private readonly List<RectangleShape> _centerShapes;
         private readonly List<Particle> _particles;
         private float _lastParticleTime;
 
-        public FireballProjectile(Vector2 position, Vector2 direction) : base(0, 0)
+        public FireballProjectile(IProjectileOwner owner, Vector2 direction)
+            : base(owner, 0)
         {
             _direction = direction;
-            Position = position;
+            Position = owner.Position;
 
             _centerShapes = new List<RectangleShape>();
             _particles = new List<Particle>();

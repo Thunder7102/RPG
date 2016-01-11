@@ -49,9 +49,9 @@ namespace SFMLTest
                     }
 
                     // Update code goes here
-                    for (int index = 0; index < Game.Entities.Count; index++)
+                    foreach (Entity entity in Game.Entities.ToArray())
                     {
-                        Game.Entities[index].Update(dTime);
+                        entity.Update(dTime);
                     }
 
                     // Rendering code goes here
