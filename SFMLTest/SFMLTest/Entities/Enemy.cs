@@ -1,4 +1,5 @@
-﻿using SFML.Graphics;
+﻿using System;
+using SFML.Graphics;
 
 namespace SFMLTest.Entities
 {
@@ -10,6 +11,7 @@ namespace SFMLTest.Entities
         private Vector2 DeathFacing { get; set; }
 
         private float MoveBackTime { get; set; }
+        private Vector2 MoveBackFrom { get; set; }
 
         public Enemy(Entity target)
             : base(3, 100, Color.Red)
@@ -22,6 +24,7 @@ namespace SFMLTest.Entities
             base.Update(dTime);
             if (MoveBackTime > Game.ElapsedTime)
             {
+                Console.WriteLine("Enemy {0}", Position);
                 Position -= GetDirection() * dTime * Speed * 10;
             }
 
@@ -29,6 +32,7 @@ namespace SFMLTest.Entities
             {
                 if (Game.ElapsedTime - DeathStartTime > 1)
                 {
+                    Console.WriteLine("Removing enemy");
                     Game.Entities.Remove(this);
                 }
                 Opacity = (float)(0.5 + (Game.ElapsedTime - DeathStartTime) * 0.5);
@@ -60,11 +64,13 @@ namespace SFMLTest.Entities
             if (IsDying) return;
             base.Hit(entity, damage);
             MoveBackTime = Game.ElapsedTime + 0.05f;
+            MoveBackFrom = (entity.Position - Position).Normalize();
         }
 
         protected override Vector2 GetDirection()
         {
             if (IsDying) return DeathFacing;
+            if (MoveBackTime > Game.ElapsedTime) return MoveBackFrom;
             return (Target.Position - Position).Normalize();
         }
 

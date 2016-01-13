@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SFML.Graphics;
 using SFMLTest.Helpers;
 
@@ -10,6 +11,8 @@ namespace SFMLTest.Entities
         private readonly List<RectangleShape> _centerShapes;
         private readonly List<Particle> _particles;
         private float _lastParticleTime;
+        private List<Entity> entitiesHit = new List<Entity>(); 
+        private const int maxEnemyHit = 3;
 
         public FireballProjectile(IProjectileOwner owner, Vector2 direction)
             : base(owner, 0)
@@ -29,7 +32,6 @@ namespace SFMLTest.Entities
                     FillColor = Color.Red
                 });
             }
-
         }
 
         public override int RenderPriority
@@ -77,6 +79,22 @@ namespace SFMLTest.Entities
                         color
                         ));
                 }
+            }
+
+            foreach (Entity entity in Game.Entities.Where(e => e != this
+                    && (e.Position - Position).Length < 20
+                    && !e.IsInvincible
+                    && !entitiesHit.Contains(e)
+                    && Owner.ValidateProjectileHit(this, e)).ToArray())
+            {
+                entity.Hit(this, 1);
+                entitiesHit.Add(entity);
+            }
+            if (entitiesHit.Count > maxEnemyHit)
+            {
+                // TODO: Explode
+                Owner.ProjectileDied(this);
+                Game.Entities.Remove(this);
             }
         }
 

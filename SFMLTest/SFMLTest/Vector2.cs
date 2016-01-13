@@ -66,8 +66,6 @@ namespace SFMLTest
 
         public float AngleTo(Vector2 target)
         {
-            float angle = (float) Math.Atan2(target.Y - Y, target.X - X);
-            Console.WriteLine("Angle between {0}/{1} and {2}/{3} is {4}", X, Y, target.X, target.Y, angle);
             return (float) (Math.Atan2(target.Y - Y, target.X - X) * 180 / Math.PI);
         }
 
@@ -77,6 +75,11 @@ namespace SFMLTest
                 (float) (Math.Cos(angle / 180 * Math.PI) * size),
                 (float) (Math.Sin(angle / 180 * Math.PI) * size)
             );
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[{0:00},{1:00}]", X, Y);
         }
     }
 }

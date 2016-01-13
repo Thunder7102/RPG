@@ -48,8 +48,7 @@ Temporary Items
 run.bat
 
 # Visual studio folders
-bin
-obj
-.suo
-.v12.suo
-SFMLTest/SFMLTest.v12.suo
+bin/
+obj/
+SFMLTest/packages/
+*.suo

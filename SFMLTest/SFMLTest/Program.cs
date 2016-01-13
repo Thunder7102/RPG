@@ -31,7 +31,7 @@ namespace SFMLTest
                 {
                     renderWindow.DispatchEvents();
 
-                    float dTime = (float)stopwatch.ElapsedMilliseconds / 1000;
+                    float dTime = stopwatch.ElapsedMilliseconds / 1000f;
                     stopwatch.Restart();
                     Game.ElapsedTime += dTime;
 

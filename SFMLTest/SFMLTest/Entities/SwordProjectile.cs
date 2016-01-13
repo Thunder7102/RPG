@@ -39,6 +39,7 @@ namespace SFMLTest.Entities
             if (EndTime < Game.ElapsedTime)
             {
                 Owner.ProjectileDied(this);
+                Game.Entities.Remove(this);
                 return;
             }
 
