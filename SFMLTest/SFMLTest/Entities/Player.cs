@@ -12,6 +12,14 @@ namespace SFMLTest.Entities
         private const float DashMultiplier = 5;
         private readonly PressListener _spaceListener = new PressListener(Keyboard.Key.Space);
         private SwordProjectile _swordProjectile;
+        private float lastDPressed = 0;
+        private bool isDPressed = false;
+        private float lastAPressed = 0;
+        private bool isAPressed = false;
+        private float lastWPressed = 0;
+        private bool isWPressed = false;
+        private float lastSPressed = 0;
+        private bool isSPressed = false;
         private readonly PressListener _1ButtonListener;
 
         private float _dashEndTime;
@@ -47,6 +55,62 @@ namespace SFMLTest.Entities
                 _dashEndTime = Game.ElapsedTime + DashTime;
             }
 
+            if (Keyboard.IsKeyPressed(Keyboard.Key.D))
+            {
+                if (Game.ElapsedTime - lastDPressed < 0.15 && !isDPressed && _dashEndTime + DashCooldown < Game.ElapsedTime)
+                {
+                    _dashEndTime = Game.ElapsedTime + DashTime;
+                }
+                isDPressed = true;
+                lastDPressed = Game.ElapsedTime;
+
+            }
+            else
+            {
+                isDPressed = false;
+            }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.A))
+            {
+                if (Game.ElapsedTime - lastAPressed < 0.15 && !isAPressed && _dashEndTime + DashCooldown < Game.ElapsedTime)
+                {
+                    _dashEndTime = Game.ElapsedTime + DashTime;
+                }
+                isAPressed = true;
+                lastAPressed = Game.ElapsedTime;
+
+            }
+            else
+            {
+                isAPressed = false;
+            }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.W))
+            {
+                if (Game.ElapsedTime - lastWPressed < 0.15 && !isWPressed && _dashEndTime + DashCooldown < Game.ElapsedTime)
+                {
+                    _dashEndTime = Game.ElapsedTime + DashTime;
+                }
+                isWPressed = true;
+                lastWPressed = Game.ElapsedTime;
+
+            }
+            else
+            {
+                isWPressed = false;
+            }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.S))
+            {
+                if (Game.ElapsedTime - lastSPressed < 0.15 && !isSPressed && _dashEndTime + DashCooldown < Game.ElapsedTime)
+                {
+                    _dashEndTime = Game.ElapsedTime + DashTime;
+                }
+                isSPressed = true;
+                lastSPressed = Game.ElapsedTime;
+
+            }
+            else
+            {
+                isSPressed = false;
+            }
             Vector2 direction = GetDirection();
             direction.X *= speed*dTime;
             direction.Y *= speed*dTime;

@@ -13,12 +13,14 @@ namespace SFMLTest.Entities
         private float _lastParticleTime;
         private List<Entity> entitiesHit = new List<Entity>(); 
         private const int maxEnemyHit = 3;
+        private float fireballAge = 0;
 
         public FireballProjectile(IProjectileOwner owner, Vector2 direction)
             : base(owner, 0)
         {
             _direction = direction;
             Position = owner.Position;
+            fireballAge = Game.ElapsedTime + 10;
 
             _centerShapes = new List<RectangleShape>();
             _particles = new List<Particle>();
@@ -93,6 +95,11 @@ namespace SFMLTest.Entities
             if (entitiesHit.Count > maxEnemyHit)
             {
                 // TODO: Explode
+                Owner.ProjectileDied(this);
+                Game.Entities.Remove(this);
+            }
+            if (Game.ElapsedTime > fireballAge)
+            {
                 Owner.ProjectileDied(this);
                 Game.Entities.Remove(this);
             }

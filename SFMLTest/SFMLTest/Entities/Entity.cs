@@ -24,7 +24,10 @@ namespace SFMLTest.Entities
 
         protected float Angle { get; set; }
         private EntityAttribute Health { get; set; }
-
+        /// <summary>
+        /// My boyfriend is a huge dork.
+        /// </summary>
+        /// <param name="dTime"></param>
         public abstract void Update(float dTime);
         public abstract void Draw(RenderTarget target, RenderStates states);
 

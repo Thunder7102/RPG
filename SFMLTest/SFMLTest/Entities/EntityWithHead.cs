@@ -25,7 +25,7 @@ namespace SFMLTest.Entities
         }
 
         protected abstract Vector2 GetDirection();
-
+       
         public override void Update(float dTime)
         {
             const int headMoveSpeed = 50;
@@ -39,6 +39,8 @@ namespace SFMLTest.Entities
             {
                 _currentHeadPosition.X -= dTime*headMoveSpeed;
             }
+            
+            //My boyfriend never comments his code.
             if (_targetHeadPosition.Y > _currentHeadPosition.Y)
             {
                 _currentHeadPosition.Y += dTime*headMoveSpeed;

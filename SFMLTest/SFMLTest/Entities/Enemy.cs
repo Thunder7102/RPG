@@ -5,7 +5,7 @@ namespace SFMLTest.Entities
 {
     public class Enemy : EntityWithHead
     {
-        private Entity Target { get; set; }
+        public Entity Target { get; set; }
         private bool IsDying { get; set; }
         private float DeathStartTime { get; set; }
         private Vector2 DeathFacing { get; set; }

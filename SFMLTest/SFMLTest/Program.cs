@@ -19,7 +19,7 @@ namespace SFMLTest
 
                 Game.Window = renderWindow;
                 Game.Init();
-                
+
                 renderWindow.Closed += (sender, e) =>
                 {
                     renderWindow.Close();
@@ -35,7 +35,7 @@ namespace SFMLTest
                     stopwatch.Restart();
                     Game.ElapsedTime += dTime;
 
-                    if (Game.Entities.OfType<Enemy>().Count() < 3)
+                    if (false && Game.Entities.OfType<Enemy>().Count() < 3)
                     {
                         Game.Entities.Add(new Enemy(Game.Player)
                         {
